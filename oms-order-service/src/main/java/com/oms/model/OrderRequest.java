@@ -3,7 +3,9 @@ package com.oms.model;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class OrderRequest implements Serializable {
@@ -18,7 +20,8 @@ public class OrderRequest implements Serializable {
 	@Size(min=10, max=500, message="shippingAddress should have atleast 10 characters and max of 500 characters")
     private String shippingAddress;
     
-    @NotEmpty
+	@NotNull(message="items are required")
+	@Valid
 	private Set<Item> items;
 
 	/**

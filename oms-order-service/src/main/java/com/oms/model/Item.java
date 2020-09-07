@@ -4,17 +4,17 @@ import java.io.Serializable;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class Item implements Serializable {
 
 	private static final long serialVersionUID = 1081208067382070780L;
 	
-	@NotEmpty(message="id is required")
+	@NotNull(message="id is required")
 	@Min(value = 1, message="id is not valid")
 	private Long id;
     
-	@NotEmpty
+	@NotNull
 	@Min(value = 1, message="quantity minimum 1 is required")
 	@Max(value = 10, message="quantity max 10 allowed")
     private int quantity;
