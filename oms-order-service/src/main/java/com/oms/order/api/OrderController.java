@@ -1,7 +1,11 @@
 package com.oms.order.api;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.oms.exception.NotFoundException;
+import com.oms.model.OrderRequest;
 import com.oms.order.entity.Order;
 import com.oms.order.service.OrderService;
 
@@ -50,7 +57,11 @@ public class OrderController {
 	    })
 	@GetMapping(path={"/{id}"})
 	ResponseEntity<Order> getOrderById(@PathVariable("id") Long id) {
-		return ResponseEntity.ok().body(orderService.getOrderById(id));
+		Optional<Order> order = orderService.getOrderById(id);
+		if(!order.isPresent()) {
+			throw new NotFoundException("Order not found for id: " + id);
+		}
+		return ResponseEntity.ok().body(order.get());
 	}
 	
 	@ApiOperation(value = "Save Order Details", response = Order.class, tags = "saveOrder")
@@ -59,7 +70,13 @@ public class OrderController {
 	        @ApiResponse(code =404, message = "404 error")
 	    })
 	@PostMapping(consumes = {"application/json"})
-	ResponseEntity<Order> saveOrder(@RequestBody Order Order) {
-		return ResponseEntity.ok().body(orderService.saveOrUpdateOrder(Order));
+	ResponseEntity<Order> saveOrder(@Valid @RequestBody OrderRequest order) throws Exception {
+		Order savedOrder = orderService.saveOrder(order);
+		if(null == savedOrder) {
+			throw new Exception("Unable to create order...");
+		}
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(savedOrder.getId()).toUri();
+		return ResponseEntity.created(location).body(savedOrder);
 	}
 }

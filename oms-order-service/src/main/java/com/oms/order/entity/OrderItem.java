@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 
@@ -37,6 +38,9 @@ public class OrderItem implements Serializable {
     @Column(name = "price", nullable = false)
     @Digits(integer = 10, fraction = 2)
     private Double price;
+    
+    @Transient
+    private Double totalPrice;
 
 	/**
 	 * @return the id
@@ -122,10 +126,17 @@ public class OrderItem implements Serializable {
 		this.price = price;
 	}
 
+	/**
+	 * @return the totalPrice
+	 */
+	public Double getTotalPrice() {
+		return quantity * price;
+	}
+
 	@Override
 	public String toString() {
 		return "OrderItem [id=" + id + ", orderId=" + orderId + ", productName=" + productName + ", productCode="
-				+ productCode + ", quantity=" + quantity + ", price=" + price + "]";
+				+ productCode + ", quantity=" + quantity + ", price=" + price + ", totalPrice=" + totalPrice + "]";
 	}
 
 }
