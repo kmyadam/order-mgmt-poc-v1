@@ -17,6 +17,8 @@ import org.apache.commons.lang.time.DateFormatUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.oms.constants.Constants;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name="OMS_ORDER")
 public class Order implements Serializable {
@@ -37,6 +39,7 @@ public class Order implements Serializable {
     @Column(name="shipping_address", nullable=false, length = 500)
     private String shippingAddress;
     
+    @ApiModelProperty(notes="orderDate - MM/dd/yyyy", name="orderDate", required=false, value="")
     @Transient
     private String orderDate;
     @Transient

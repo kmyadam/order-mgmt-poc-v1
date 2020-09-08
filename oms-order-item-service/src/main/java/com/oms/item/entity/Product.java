@@ -9,6 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 @Table(name="OMS_PRODUCT")
@@ -20,15 +26,25 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name="name", nullable=false, length = 100)
+	@ApiModelProperty(notes="name should have at least 10 characters and max of 100 characters", name="name", required=true, value="")
+	@NotEmpty
+	@Size(min=10, max=100, message="name should have at least 10 characters and max of 100 characters")
+	@Column(name="name", nullable=false, length = 100)
     private String name;
     
-    @Column(name="code", nullable=false, length = 100)
+	@ApiModelProperty(notes="code should have at least 2 characters and max of 100 characters", name="code", required=true, value="")
+	@NotEmpty
+	@Size(min=2, max=100, message="code should have at least 2 characters and max of 100 characters")
+	@Column(name="code", nullable=false, length = 100)
     private String code;
 
-    @Column(name = "price", nullable = false)
+	@ApiModelProperty(notes="price should have a positive number", name="price", required=true, value="")
+	@NotNull
+	@Min(value = 1, message="price is required")
+	@Column(name = "price", nullable = false)
     @Digits(integer = 10, fraction = 2)
     private Double price;
+	
     
     /**
      * 

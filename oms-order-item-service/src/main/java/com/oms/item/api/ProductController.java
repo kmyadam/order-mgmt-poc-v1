@@ -26,13 +26,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import io.swagger.annotations.SwaggerDefinition;
-import io.swagger.annotations.Tag;
 
-@Api(value = "ProductController" , tags = {"Product Controller"})
-@SwaggerDefinition(tags = {
-        @Tag(name = "Product Controller", description = "Handles Product CRUD Operations")
-})
+@Api(value = "/product" , tags = {"Product Controller"})
 @RestController
 @RequestMapping(value="/product", produces = {"application/json"})
 public class ProductController {
@@ -40,7 +35,7 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
 
-	@ApiOperation(value = "List of all Products", response = ArrayList.class, tags = "getAllProducts")
+	@ApiOperation(value = "List of all Products", response = ArrayList.class)
 	@ApiResponses(value = {
 	        @ApiResponse(code = 200, message = "OK"),
 	        @ApiResponse(code = 404, message = "404 error")
@@ -50,7 +45,7 @@ public class ProductController {
 		return ResponseEntity.ok().body(productService.getAllProducts());
 	}
 	
-	@ApiOperation(value = "Get Product Details", response = Product.class, tags = "getProductById")
+	@ApiOperation(value = "Get Product Details", response = Product.class)
 	@ApiResponses(value = {
 	        @ApiResponse(code = 200, message = "OK"),
 	        @ApiResponse(code = 404, message = "404 error")
@@ -64,9 +59,9 @@ public class ProductController {
 		return ResponseEntity.ok().body(product.get());
 	}
 	
-	@ApiOperation(value = "Save Product Details", response = Product.class, tags = "saveProduct")
+	@ApiOperation(value = "Save Product Details", response = Product.class)
 	@ApiResponses(value = {
-	        @ApiResponse(code = 200, message = "OK"),
+	        @ApiResponse(code = 201, message = "Created"),
 	        @ApiResponse(code = 404, message = "404 error")
 	    })
 	@PostMapping(consumes = {"application/json"})
@@ -77,7 +72,7 @@ public class ProductController {
 		return ResponseEntity.created(location).body(savedProduct);
 	}
 	
-	@ApiOperation(value = "Update Product Details", response = Product.class, tags = "updateProduct")
+	@ApiOperation(value = "Update Product Details", response = Product.class)
 	@ApiResponses(value = {
 	        @ApiResponse(code = 200, message = "OK"),
 	        @ApiResponse(code = 404, message = "404 error")

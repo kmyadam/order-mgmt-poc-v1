@@ -22,11 +22,11 @@ public class SwaggerConfiguration extends WebMvcConfigurationSupport {
     @Bean
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.oms.item.api"))
                 .paths(regex("/product.*"))
-                .build()
-                .apiInfo(apiInfo());
+                .build();
     }
     
     private ApiInfo apiInfo() {
@@ -34,8 +34,8 @@ public class SwaggerConfiguration extends WebMvcConfigurationSupport {
                 .title("Rest API Documentation")
                 .description("\"OMS Order Item Service\"")
                 .version("1.0.0")
-                .license("Apache License Version 2.0")
-                .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"")
+                //.license("Apache License Version 2.0")
+                //.licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"")
                 .contact(new Contact("Kashinath", "", "kashimca@gmail.com"))
                 .build();
     }

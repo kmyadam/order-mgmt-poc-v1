@@ -8,18 +8,23 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class OrderRequest implements Serializable {
 
 	private static final long serialVersionUID = 1081208067382070780L;
     
+	@ApiModelProperty(notes="customerName should have at least 2 characters and max of 100 characters", name="customerName", required=true, value="")
 	@NotEmpty
-	@Size(min=2, max=100, message="customerName should have atleast 2 characters and max of 100 characters")
+	@Size(min=2, max=100, message="customerName should have at least 2 characters and max of 100 characters")
     private String customerName;
     
+	@ApiModelProperty(notes="shippingAddress should have at least 10 characters and max of 500 characters", name="shippingAddress", required=true, value="")
 	@NotEmpty
-	@Size(min=10, max=500, message="shippingAddress should have atleast 10 characters and max of 500 characters")
+	@Size(min=10, max=500, message="shippingAddress should have at least 10 characters and max of 500 characters")
     private String shippingAddress;
     
+	@ApiModelProperty(notes="items - at least one item is required", name="items", required=true, value="")
 	@NotNull(message="items are required")
 	@Valid
 	private Set<Item> items;

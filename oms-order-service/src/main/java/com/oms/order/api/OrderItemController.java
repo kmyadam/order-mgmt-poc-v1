@@ -17,13 +17,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import io.swagger.annotations.SwaggerDefinition;
-import io.swagger.annotations.Tag;
 
-@Api(value = "OrderItemController" , tags = {"Order Item Controller"})
-@SwaggerDefinition(tags = {
-        @Tag(name = "Order Item Controller", description = "Handles Order Item CRUD Operations")
-})
+@Api(value = "/order" , tags = {"Order Item Controller"})
 @RestController
 @RequestMapping(value="/order", produces = {"application/json"})
 public class OrderItemController {
@@ -31,7 +26,7 @@ public class OrderItemController {
 	@Autowired
 	OrderItemService orderItemService;
 
-	@ApiOperation(value = "List of all Order Items", response = ArrayList.class, tags = "getAllOrderItemByOrderId")
+	@ApiOperation(value = "List of all Order Items", response = ArrayList.class)
 	@ApiResponses(value = {
 	        @ApiResponse(code = 200, message = "OK"),
 	        @ApiResponse(code = 404, message = "404 error")
@@ -41,12 +36,12 @@ public class OrderItemController {
 		return ResponseEntity.ok().body(orderItemService.getAllOrderItemByOrderId(orderId));
 	}
 	
-	@ApiOperation(value = "Get Order Item Details", response = OrderItem.class, tags = "getOrderItemById")
+	@ApiOperation(value = "Get Order Item Details", response = OrderItem.class)
 	@ApiResponses(value = {
 	        @ApiResponse(code = 200, message = "OK"),
 	        @ApiResponse(code = 404, message = "404 error")
 	    })
-	@GetMapping(path={"/{orderId}/orderitem/{itemId}"})
+	@GetMapping(path={"/orderitem/{itemId}"})
 	ResponseEntity<OrderItem> getOrderItemById(@PathVariable("itemId") Long itemId) {
 		return ResponseEntity.ok().body(orderItemService.getOrderItemById(itemId));
 	}

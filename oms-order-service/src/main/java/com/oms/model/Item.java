@@ -6,14 +6,18 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class Item implements Serializable {
 
 	private static final long serialVersionUID = 1081208067382070780L;
 	
+	@ApiModelProperty(notes="Product ID", name="productId", required=true, value="")
 	@NotNull(message="product_id is required")
 	@Min(value = 1, message="productId is not valid")
 	private Long productId;
     
+	@ApiModelProperty(notes="Product Quantity", name="quantity", required=true, value="")
 	@NotNull
 	@Min(value = 1, message="quantity minimum 1 is required")
 	@Max(value = 10, message="quantity max 10 allowed")

@@ -34,8 +34,8 @@ public class SwaggerConfiguration extends WebMvcConfigurationSupport {
                 .title("Rest API Documentation")
                 .description("\"OMS Order Service\"")
                 .version("1.0.0")
-                .license("Apache License Version 2.0")
-                .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"")
+                //.license("Apache License Version 2.0")
+                //.licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"")
                 .contact(new Contact("Kashinath", "", "kashimca@gmail.com"))
                 .build();
     }
