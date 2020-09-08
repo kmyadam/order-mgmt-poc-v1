@@ -4,4 +4,4 @@ Order Management System POC
 # Test instances:
 * Order Item Service : https://oms-product.herokuapp.com
 
-* Order Service : https://omg-pr.herokuapp.com
+* Order Service : https://oms-order.herokuapp.com
