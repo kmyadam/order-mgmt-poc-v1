@@ -25,19 +25,19 @@ import io.swagger.annotations.Tag;
         @Tag(name = "Order Item Controller", description = "Handles Order Item CRUD Operations")
 })
 @RestController
-@RequestMapping(value="/orderitem", produces = {"application/json"})
+@RequestMapping(value="/order", produces = {"application/json"})
 public class OrderItemController {
 	
 	@Autowired
 	OrderItemService orderItemService;
 
-	@ApiOperation(value = "List of all Order Items", response = ArrayList.class, tags = "getAllOrderItems")
+	@ApiOperation(value = "List of all Order Items", response = ArrayList.class, tags = "getAllOrderItemByOrderId")
 	@ApiResponses(value = {
 	        @ApiResponse(code = 200, message = "OK"),
 	        @ApiResponse(code = 404, message = "404 error")
 	    })
-	@GetMapping(path={"/{orderId}"})
-	ResponseEntity<List<OrderItem>> getAllOrderItems(@PathVariable("orderId") Long orderId){
+	@GetMapping(path={"/{orderId}/orderitem"})
+	ResponseEntity<List<OrderItem>> getAllOrderItemByOrderId(@PathVariable("orderId") Long orderId){
 		return ResponseEntity.ok().body(orderItemService.getAllOrderItemByOrderId(orderId));
 	}
 	
@@ -46,7 +46,7 @@ public class OrderItemController {
 	        @ApiResponse(code = 200, message = "OK"),
 	        @ApiResponse(code = 404, message = "404 error")
 	    })
-	@GetMapping(path={"/item/{itemId}"})
+	@GetMapping(path={"/{orderId}/orderitem/{itemId}"})
 	ResponseEntity<OrderItem> getOrderItemById(@PathVariable("itemId") Long itemId) {
 		return ResponseEntity.ok().body(orderItemService.getOrderItemById(itemId));
 	}

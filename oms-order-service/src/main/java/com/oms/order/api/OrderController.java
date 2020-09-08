@@ -3,7 +3,6 @@ package com.oms.order.api;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.oms.exception.NotFoundException;
 import com.oms.model.OrderRequest;
 import com.oms.order.entity.Order;
 import com.oms.order.service.OrderService;
@@ -57,11 +55,7 @@ public class OrderController {
 	    })
 	@GetMapping(path={"/{id}"})
 	ResponseEntity<Order> getOrderById(@PathVariable("id") Long id) {
-		Optional<Order> order = orderService.getOrderById(id);
-		if(!order.isPresent()) {
-			throw new NotFoundException("Order not found for id: " + id);
-		}
-		return ResponseEntity.ok().body(order.get());
+		return ResponseEntity.ok().body(orderService.getOrderById(id));
 	}
 	
 	@ApiOperation(value = "Save Order Details", response = Order.class, tags = "saveOrder")

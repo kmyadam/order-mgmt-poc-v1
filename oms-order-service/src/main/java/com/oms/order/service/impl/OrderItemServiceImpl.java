@@ -32,7 +32,7 @@ public class OrderItemServiceImpl implements OrderItemService {
 	}
 
 	@Override
-	public OrderItem saveOrUpdateOrderItem(OrderItem orderItem) {
+	public OrderItem saveOrderItem(OrderItem orderItem) {
 		return orderItemRepository.save(orderItem);
 	}
 

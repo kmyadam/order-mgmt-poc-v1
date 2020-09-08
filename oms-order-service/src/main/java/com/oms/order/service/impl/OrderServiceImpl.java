@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.oms.exception.NotFoundException;
 import com.oms.feign.ProductControllerProxy;
 import com.oms.model.Item;
 import com.oms.model.OrderRequest;
@@ -36,8 +37,15 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Optional<Order> getOrderById(Long id) {
-		return orderRepository.findById(id);
+	public Order getOrderById(Long id) {
+		Optional<Order> order = orderRepository.findById(id);
+		if(!order.isPresent()) {
+			throw new NotFoundException("Order not found for id: " + id);
+		}
+		//Include OrderItem List:
+		Order orderDetails = order.get();
+		orderDetails.setOrderItems(orderItemService.getAllOrderItemByOrderId(id));
+		return orderDetails;
 	}
 
 	@Override
@@ -60,19 +68,20 @@ public class OrderServiceImpl implements OrderService {
 				& !orderRequest.getItems().isEmpty()) {
 			Order order = new Order();
 			order.setCustomerName(orderRequest.getCustomerName());
-			order.setOrderDate(new Date());
+			order.setOrderDateDB(new Date());
 			order.setShippingAddress(orderRequest.getShippingAddress());
 			order = orderRepository.save(order);
 			for(Item item : orderRequest.getItems()){
 				try {
-					Product product = productControllerProxy.getProductById(item.getId());
+					Product product = productControllerProxy.getProductById(item.getProductId());
 					OrderItem orderItem = new OrderItem();
 					orderItem.setOrderId(order.getId());
+					orderItem.setProductId(product.getId());
 					orderItem.setProductName(product.getName());
 					orderItem.setProductCode(product.getCode());
 					orderItem.setPrice(product.getPrice());
 					orderItem.setQuantity(item.getQuantity());
-					orderItemService.saveOrUpdateOrderItem(orderItem);
+					orderItemService.saveOrderItem(orderItem);
 				} catch(Exception e) {}
 			}
 			return order;

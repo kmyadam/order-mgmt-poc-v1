@@ -10,9 +10,9 @@ public class Item implements Serializable {
 
 	private static final long serialVersionUID = 1081208067382070780L;
 	
-	@NotNull(message="id is required")
-	@Min(value = 1, message="id is not valid")
-	private Long id;
+	@NotNull(message="product_id is required")
+	@Min(value = 1, message="productId is not valid")
+	private Long productId;
     
 	@NotNull
 	@Min(value = 1, message="quantity minimum 1 is required")
@@ -20,17 +20,35 @@ public class Item implements Serializable {
     private int quantity;
 
 	/**
-	 * @return the id
+	 * Item
 	 */
-	public Long getId() {
-		return id;
+	public Item() {
+		super();
 	}
 
 	/**
-	 * @param id the id to set
+	 * Item
+	 * @param productId
+	 * @param quantity
 	 */
-	public void setId(Long id) {
-		this.id = id;
+	public Item(Long productId, int quantity) {
+		super();
+		this.productId = productId;
+		this.quantity = quantity;
+	}
+
+	/**
+	 * @return the productId
+	 */
+	public Long getProductId() {
+		return productId;
+	}
+
+	/**
+	 * @param productId the productId to set
+	 */
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 
 	/**
@@ -51,7 +69,7 @@ public class Item implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((productId == null) ? 0 : productId.hashCode());
 		return result;
 	}
 
@@ -64,17 +82,17 @@ public class Item implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Item other = (Item) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (productId == null) {
+			if (other.productId != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!productId.equals(other.productId))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Item [id=" + id + ", quantity=" + quantity + "]";
+		return "Item [productId=" + productId + ", quantity=" + quantity + "]";
 	}
 
 }

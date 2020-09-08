@@ -30,6 +30,28 @@ public class Product implements Serializable {
     @Digits(integer = 10, fraction = 2)
     private Double price;
     
+    /**
+     * 
+     */
+    public Product() {
+		super();
+	}
+
+	/**
+     * Product
+     * @param id
+     * @param name
+     * @param code
+     * @param price
+     */
+	public Product(Long id, String name, String code, Double price) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.code = code;
+		this.price = price;
+	}
+
 	/**
 	 * @return the id
 	 */

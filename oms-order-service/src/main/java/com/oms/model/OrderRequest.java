@@ -25,6 +25,26 @@ public class OrderRequest implements Serializable {
 	private Set<Item> items;
 
 	/**
+	 * OrderRequest
+	 */
+	public OrderRequest() {
+		super();
+	}
+
+	/**
+	 * OrderRequest
+	 * @param customerName
+	 * @param shippingAddress
+	 * @param items
+	 */
+	public OrderRequest(String customerName, String shippingAddress, Set<Item> items) {
+		super();
+		this.customerName = customerName;
+		this.shippingAddress = shippingAddress;
+		this.items = items;
+	}
+
+	/**
 	 * @return the customerName
 	 */
 	public String getCustomerName() {

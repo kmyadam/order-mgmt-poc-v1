@@ -10,6 +10,6 @@ public interface OrderItemService {
 	
 	OrderItem getOrderItemById(Long id);
 	
-	OrderItem saveOrUpdateOrderItem(OrderItem orderItem);
+	OrderItem saveOrderItem(OrderItem orderItem);
 	
 }

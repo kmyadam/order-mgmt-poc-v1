@@ -24,6 +24,9 @@ public class OrderItem implements Serializable {
 	
 	@Column(name = "order_id", nullable = false)
     private Long orderId;
+	
+	@Column(name = "product_id", nullable = false)
+    private Long productId;
     
     @Column(name = "product_name", nullable = false)
     private String productName;
@@ -41,6 +44,36 @@ public class OrderItem implements Serializable {
     
     @Transient
     private Double totalPrice;
+
+    /**
+     * 
+     */
+    public OrderItem() {
+		super();
+	}
+    
+    /**
+     * OrderItem
+     * @param id
+     * @param orderId
+     * @param productId
+     * @param productName
+     * @param productCode
+     * @param quantity
+     * @param price
+     * @param totalPrice
+     */
+	public OrderItem(Long orderId, Long productId, String productName, String productCode, 
+			Integer quantity, Double price, Double totalPrice) {
+		super();
+		this.orderId = orderId;
+		this.productId = productId;
+		this.productName = productName;
+		this.productCode = productCode;
+		this.quantity = quantity;
+		this.price = price;
+		this.totalPrice = totalPrice;
+	}
 
 	/**
 	 * @return the id
@@ -68,6 +101,20 @@ public class OrderItem implements Serializable {
 	 */
 	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
+	}
+
+	/**
+	 * @return the productId
+	 */
+	public Long getProductId() {
+		return productId;
+	}
+
+	/**
+	 * @param productId the productId to set
+	 */
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 
 	/**
@@ -135,8 +182,9 @@ public class OrderItem implements Serializable {
 
 	@Override
 	public String toString() {
-		return "OrderItem [id=" + id + ", orderId=" + orderId + ", productName=" + productName + ", productCode="
-				+ productCode + ", quantity=" + quantity + ", price=" + price + ", totalPrice=" + totalPrice + "]";
+		return "OrderItem [id=" + id + ", orderId=" + orderId + ", productId=" + productId + ", productName="
+				+ productName + ", productCode=" + productCode + ", quantity=" + quantity + ", price=" + price
+				+ ", totalPrice=" + totalPrice + "]";
 	}
 
 }
